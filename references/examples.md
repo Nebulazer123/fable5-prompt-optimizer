@@ -220,7 +220,7 @@ Role & Objective
 Act as the high-intelligence audit and design pass before Codex edits a local agent skill. Upgrade the `company-intelligent-research` skill so it can perform deeper, more logical, source-backed company research: broad enough to find small but important signals, disciplined enough to distinguish facts from weak but meaningful inferences, and practical enough for Codex to implement and validate.
 
 Target
-Skill path: `/Users/corbinfloyd/.codex/skills/company-intelligent-research/SKILL.md`
+Skill path: `~/.codex/skills/company-intelligent-research/SKILL.md`
 
 Context Loading
 Use the target path/source material below as the starting point. Start by reading the target `SKILL.md`, then inspect the skill folder tree. Read the reference files, scripts, and tests that the entry file points to or that become relevant to this improvement pass. Because this is a maximum-improvement audit, widen to the full skill folder if small details could reveal missing opportunities.
@@ -268,4 +268,97 @@ What To Explore
 
 Output
 Return a Codex-ready design handoff: recommended direction, interaction and motion priorities, implementation shape, acceptance criteria, visual QA plan, and risks. Keep room for Codex to adapt after inspecting the real UI.
+```
+
+## Example 9: Claude Code Repo Review With Selective Commands
+
+Raw ask:
+
+```text
+review this diff and tell Codex what to fix
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+Act as the high-signal review and implementation-intelligence pass before Codex edits. Inspect the current diff and identify the issues that would most change correctness, maintainability, or user impact.
+
+Context
+Use the active session context and current repo state as source material. If available, use project code-intelligence tools for structural discovery and review-oriented commands only where they materially improve the review.
+
+Ambition
+Look beyond obvious style notes. Find behavior regressions, brittle assumptions, missing tests, weak abstractions, and places where the diff fights existing project patterns.
+
+What To Explore
+- The intended behavior versus what the diff actually changes.
+- Call paths, ownership boundaries, and likely blast radius.
+- Correctness risks, simplification opportunities, and test gaps.
+- Whether a targeted `/code-review`, `/simplify`, or `/security-review` pass would add useful evidence.
+- What Codex should verify before calling the fix done.
+
+Output
+Return a Codex-ready repair brief: prioritized findings, why each matters, the likely implementation shape, acceptance criteria, and verification signals. Keep the command/tool suggestions selective; do not turn this into a generic checklist.
+```
+
+## Example 10: Research With Source Fanout
+
+Raw ask:
+
+```text
+deeply research this company and find weak signals
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+Act as a source-backed company intelligence pass. Build the strongest useful read on the company from current evidence, including small tells that may matter even when the evidence is incomplete.
+
+Context
+Use the company name, links, files, and active chat context already available. Use source-fanout research only if it materially improves freshness, coverage, or contradiction checks.
+
+Ambition
+Go beyond a normal company summary. Look for strategic shifts, hiring and product signals, customer language, pricing or docs changes, leadership comments, market pressure, and inconsistencies across sources.
+
+What To Explore
+- Verified facts from official or primary sources.
+- Plausible inferences from weak but meaningful signals.
+- Contradictions, stale claims, and missing evidence.
+- Whether `/deep-research` or browser-based source inspection would materially improve confidence.
+- What matters for the user's likely next decision.
+
+Output
+Return a concise intelligence brief with facts, inferences, weak signals, confidence labels, source freshness, contradictions, and recommended next moves. Do not inflate weak evidence into certainty.
+```
+
+## Example 11: Framer And Animation Upgrade
+
+Raw ask:
+
+```text
+improve my framer project and make the animations better
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+Act as the product-minded Framer design and motion pass before implementation. Upgrade the project so the page feels more intentional, easier to read, and more memorable without adding decorative motion that does not serve the experience.
+
+Context
+Use the active project context, existing design system, canvas structure, assets, and any screenshots already available. If Framer project skills are available, use them for project-aware inspection and recommendations.
+
+Ambition
+Look for the few changes that would most improve perceived quality: hierarchy, spacing, typography, interaction states, motion pacing, responsive behavior, and conversion clarity.
+
+What To Explore
+- Which sections need structural design changes versus light polish.
+- Where animation should clarify state, hierarchy, causality, or feedback.
+- Hover, active, focus, loading, empty, and reduced-motion states.
+- Whether `/run`, `/verify`, visual QA, or Framer-specific inspection would provide useful proof.
+- Risks from over-animation, inaccessible contrast, layout overlap, or fragile component constraints.
+
+Output
+Return a Codex-ready Framer handoff: recommended design direction, motion priorities, implementation shape, acceptance criteria, and visual QA checks. Mention only the project capabilities that actually help this task.
 ```

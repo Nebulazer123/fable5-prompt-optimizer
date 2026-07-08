@@ -130,6 +130,8 @@ No API keys, hosted services, or paid accounts are required by the skill itself.
 SKILL.md                         Skill instructions and trigger behavior
 agents/openai.yaml               Codex display metadata
 references/fable5-rules.md       Fable 5 prompting rules used by the skill
+references/capability-contexts.md Domain routing for coding, research, design, docs, skills, and ultracode
+references/claude-code-capabilities.md Claude Code commands, skills, MCP, hooks, plugin, and CLI capability catalog
 references/examples.md           Before/after examples
 references/upstream-license.txt  MIT attribution for adapted upstream material
 ```

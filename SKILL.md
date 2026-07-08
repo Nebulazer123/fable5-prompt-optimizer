@@ -9,7 +9,7 @@ description: Expand rough or ambitious asks into stronger Claude Fable 5 prompts
 
 Turn a small user ask into a Fable-5-ready prompt that is more ambitious, clearer about intent, and still open enough for Fable 5 to choose the best method after seeing the real material. When the prompt is for a Codex workflow, default to an intelligence handoff that Codex will implement.
 
-Read `references/fable5-rules.md` before optimizing. Read `references/capability-contexts.md` when the prompt should draw on a domain-specific capability context such as coding, research, design, animation/UI, vision QA, documents, skill improvement, or `ultracode`. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
+Read `references/fable5-rules.md` before optimizing. Read `references/capability-contexts.md` when the prompt should draw on a domain-specific capability context such as coding, research, design, animation/UI, vision QA, documents, skill improvement, or `ultracode`. Read `references/claude-code-capabilities.md` when the target surface is Claude Code, Claude CLI, `ultracode`, slash commands, skills, agents, MCP, hooks, verification, plugins, or command-aware work. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
 
 ## Workflow
 
@@ -17,8 +17,9 @@ Read `references/fable5-rules.md` before optimizing. Read `references/capability
 2. Detect the run surface: active Codex chat, new/standalone Claude or Fable chat, API/harness, or Claude Code with `ultracode`/dynamic workflows.
 3. Preserve latitude: keep the method, sequencing, and discovery path open unless the user explicitly asked for a plan, schema, code, or exact steps.
 4. Add useful context: include role, purpose, stakes, audience, source material placeholders, and success criteria.
-5. Remove brittle Fable 5 anti-patterns: no model-name self-introductions in generated prompt bodies, no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
-6. Output the optimized prompt first. Add a short rationale or open questions only when they materially help.
+5. Select capabilities quietly: mention Claude Code commands, skills, agents, MCP, hooks, or plugins only when they materially improve the prompt.
+6. Remove brittle Fable 5 anti-patterns: no model-name self-introductions in generated prompt bodies, no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
+7. Output the optimized prompt first. Add a short rationale or open questions only when they materially help.
 
 ## Context Handling
 
@@ -38,7 +39,7 @@ If the prompt is for a first-time or standalone chat, carry forward the target p
 Use the target path/source material below as the starting point.
 ```
 
-For local skill-improvement asks, do not tell Fable 5 to read every file by default. Use progressive loading:
+For local skill-improvement asks, do not tell Fable 5 to load the entire tree automatically. Use progressive loading:
 
 1. Read the target `SKILL.md` first.
 2. Inspect the target skill tree.
@@ -62,6 +63,26 @@ Keep the handoff detailed but efficient. Compress repeated context, avoid long t
 Generated optimized prompt bodies must not introduce or label the target model by name. Do not write role lines that name the model, even when the user says "for Fable 5." Use capability-role language instead, such as "Act as a high-intelligence design pass," "Act as a senior research strategist," or "Act as the architecture and implementation-intelligence pass."
 
 Skill documentation, file names, attribution, and API/model notes may still mention Fable 5 when describing the skill or platform facts.
+
+## Claude Code Capability Selection
+
+When a prompt is meant for Claude Code or Claude CLI, use `references/claude-code-capabilities.md` as Codex's private selection catalog. The generated prompt should not recite that catalog. It should name a command, skill, agent pattern, MCP server, hook, or plugin only when that tool is a real mechanism for the user's requested work.
+
+Prefer quiet capability hints:
+
+```text
+Use available project skills, commands, or subagents if they materially improve the work.
+```
+
+Do not tell the target session what it is, where it is, which repo it is in, or which config it already knows from the active session. Avoid meta setup language unless the user is explicitly asking for a standalone Claude CLI command, a new session launch, or a config change.
+
+Good selective mentions:
+
+- Use `/deep-research` only for source-fanout research where citations and cross-checking matter.
+- Use `/code-review`, `/simplify`, or `/security-review` only for review-oriented diff work.
+- Use `/run` or `/verify` only when the prompt should ask Claude Code to prove behavior in a running app.
+- Use `/batch` or `ultracode` only for large parallel work where workflow orchestration would help.
+- Use local skills such as `codebase-memory`, `browse`, `framer`, or `remotion-best-practices` only when the ask directly matches those capabilities.
 
 ## Ultracode And Dynamic Workflows
 
@@ -135,7 +156,8 @@ Before responding, verify:
 - Generated prompt bodies do not name the target model.
 - Active-chat prompts do not duplicate already-injected context.
 - Standalone prompts include supplied file paths and context needed to locate material.
-- File-path prompts use progressive loading instead of telling the model to read every file by default.
+- File-path prompts use progressive loading instead of forcing full-tree loading.
+- Claude Code prompts mention only relevant commands, skills, agents, MCP, hooks, or plugins.
 - Codex-to-Fable prompts ask for visible rationale and handoff detail without requesting hidden chain-of-thought.
 - Codex-to-Fable prompts do not make Fable perform Codex's implementation work unless the user asked for execution.
 - Ultracode prompts preserve the workflow signal without hard-coding agent choreography.
