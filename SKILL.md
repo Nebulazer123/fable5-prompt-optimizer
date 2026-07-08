@@ -16,10 +16,11 @@ Read `references/fable5-rules.md` before optimizing. Read `references/capability
 1. Identify the moonshot: infer the larger outcome the user is reaching for, not just the literal task words.
 2. Detect the run surface: active chat, Claude Code Desktop, Claude Code CLI, Claude Cowork, API/harness, or another builder such as Codex when explicitly relevant.
 3. Preserve latitude: keep the method, sequencing, and discovery path open unless the user explicitly asked for a plan, schema, code, or exact steps.
-4. Add useful context: include role, purpose, stakes, audience, source material placeholders, and success criteria.
-5. Select capabilities quietly: mention Claude Code commands, skills, agents, MCP, hooks, or plugins only when they materially improve the prompt.
-6. Remove brittle Fable 5 anti-patterns: no model-name self-introductions in generated prompt bodies, no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
-7. Output the optimized prompt first. Add a short rationale or open questions only when they materially help.
+4. Run the Fable preparedness gate: decide whether active chat context is enough, Codex should prepare a context packet first, or Codex should finish/capture one cheap checkpoint before the prompt is sent.
+5. Add useful context: include role, purpose, stakes, audience, source material placeholders, and success criteria.
+6. Select capabilities quietly: mention Claude Code commands, skills, agents, MCP, hooks, or plugins only when they materially improve the prompt.
+7. Remove brittle Fable 5 anti-patterns: no model-name self-introductions in generated prompt bodies, no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
+8. Output the optimized prompt first. Add a short rationale or open questions only when they materially help.
 
 ## Context Handling
 
@@ -30,6 +31,54 @@ Use the conversation, files, tool outputs, and decisions already present in this
 ```
 
 Only use document or source placeholders when the prompt will be pasted into a new chat or external harness that will not have the prior context.
+
+## Fable Preparedness Gate
+
+Use this gate when the prompt will send Fable into a complex active project, review, repo audit, skill improvement, design pass, research synthesis, or any task where Fable would otherwise spend its first turn reconstructing state. The goal is to let Codex do prep before and implementation/verification after, while Fable does the high-intelligence judgment pass with a prepared source packet.
+
+Before producing the final optimized prompt, choose one of three paths:
+
+1. **Active context only**: use the existing chat context when it is compact and complete enough.
+2. **Prepared context packet**: have Codex create or point to a Markdown packet when state, evidence, artifacts, or open decisions are spread across files/tools/chat.
+3. **Quick checkpoint first**: tell Codex to finish or capture one small nearby thing before packet creation when it materially improves Fable's review.
+
+Use quick checkpoint work sparingly:
+
+- If Codex is close to a natural checkpoint, tell Codex to finish the nearby item first: save the current artifact, run the quick validation already implied by the work, capture the current diff/status, or write down the unresolved decision.
+- If there are incomplete tasks that are cheap and necessary for review, tell Codex to complete those before asking Fable for judgment.
+- If the missing work is large, risky, destructive, or changes scope, do not stall the prompt. Instead, record the gap in the packet and ask Fable to account for it.
+
+When a packet is useful, create or request a Markdown file with a stable local path. Prefer:
+
+```text
+work/fable5-context-packet.md
+work/fable5-context/<task-slug>.md
+```
+
+In real prompts, include the exact absolute path if Codex created the packet. In examples or reusable docs, use a placeholder or home-relative path instead of a personal absolute path.
+
+When using this skill from Codex and local file/tool access is available, create the packet before returning the final optimized prompt. If packet creation is not possible in the current surface, tell the builder exactly what to capture and use a placeholder path in the prompt.
+
+The packet should be detailed enough that Fable can start with judgment instead of setup:
+
+- User ask and intended run surface.
+- Current objective, state, constraints, and decisions already made.
+- Target paths, relevant files, repo status/diff, screenshots, links, or artifacts.
+- Validation evidence or the reason validation was not run.
+- What Codex already tried, changed, tested, or ruled out.
+- Known gaps, weak evidence, risks, and open questions.
+- The exact judgment, critique, strategy, or handoff Fable should produce.
+- What Codex should do after Fable returns the handoff.
+
+When a prepared packet exists, include it in the generated prompt before broader context notes:
+
+```text
+Context Packet
+Use this prepared context packet as the starting point: `<exact-path>`.
+Treat it as a state snapshot. Inspect only what is necessary to make the judgment or handoff stronger.
+```
+
+Do not add a packet just to look thorough. Use it when it saves Fable from avoidable state reconstruction, makes review materially more accurate, or gives subagents a shared starting snapshot.
 
 ## New Chat And File Path Handling
 
@@ -133,6 +182,8 @@ For prompts that reference local files, include the exact paths and a short cont
 
 For API-target prompts, add a short `Fable 5 API notes` section only when the user asks for API use or mentions SDKs, agents, tools, harnesses, batch, streaming, parameters, or model IDs.
 
+When a prepared context packet exists, include a `Context Packet` section with the exact path before broader context notes.
+
 ## Style Rules
 
 - Make the first paragraph broad and high-agency.
@@ -155,6 +206,9 @@ Before responding, verify:
 - The output does not become a rigid implementation plan.
 - Generated prompt bodies do not name the target model.
 - Active-chat prompts do not duplicate already-injected context.
+- Prepared context packets are used only when they reduce reconstruction work, improve review quality, or give subagents a shared state snapshot.
+- If Codex is close to a useful checkpoint, the skill tells Codex to finish/capture only the cheap relevant item before sending the prompt.
+- Large missing work is recorded as a packet gap instead of blocking prompt creation.
 - Standalone prompts include supplied file paths and context needed to locate material.
 - File-path prompts use progressive loading instead of forcing full-tree loading.
 - Claude Code prompts mention only relevant commands, skills, agents, MCP, hooks, or plugins.

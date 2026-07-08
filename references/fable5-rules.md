@@ -103,6 +103,25 @@ For active chats, do not repeat the chat history. Use a compact context instruct
 
 > Use the existing conversation, files, tool outputs, and decisions as context. Produce the implementation-ready intelligence handoff, not the implementation. Show the useful rationale, tradeoffs, and acceptance criteria the builder needs to build the right thing.
 
+## Prepared Context Packets
+
+For complex handoffs, the best prompt may be a two-part move: Codex prepares a high-detail packet first, then the optimized prompt points Fable at the packet. This avoids wasting Fable's first turn on state reconstruction and keeps setup, implementation, and verification work with the builder.
+
+Use a packet when the task depends on active project state, repo diffs, prior decisions, screenshots, validation output, known gaps, or multiple local files. Skip it when the active chat context is already compact and sufficient.
+
+A good packet includes enough state for Fable to begin with judgment:
+
+- The user's real ask and intended run surface.
+- Current objective, decisions, constraints, and unresolved questions.
+- Target paths, relevant files, diffs, screenshots, links, artifacts, and validation evidence.
+- What the builder already tried, changed, tested, or ruled out.
+- The exact judgment, critique, strategy, or handoff Fable should produce.
+- What the builder should do after the handoff returns.
+
+If Codex is close to a natural checkpoint, finish or capture only the cheap relevant item before asking for review: save the artifact, run the quick implied check, record current status/diff, collect a screenshot, or note the unresolved decision. Do not block on large new work; put the gap in the packet.
+
+When Codex created the packet, include the exact absolute path in the generated prompt. In examples and reusable docs, use placeholders or home-relative paths instead of personal absolute paths.
+
 ## Output Defaults
 
 Default answer shape:

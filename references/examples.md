@@ -362,3 +362,40 @@ What To Explore
 Output
 Return a Codex-ready Framer handoff: recommended design direction, motion priorities, implementation shape, acceptance criteria, and visual QA checks. Mention only the project capabilities that actually help this task.
 ```
+
+## Example 12: Prepared Packet Before Fable Review
+
+Raw ask:
+
+```text
+review this repo before I send it to Fable
+```
+
+Codex preflight:
+
+```text
+Create a packet at `work/fable5-context/repo-review.md` before sending the prompt. Include the user's ask, current objective, target paths, relevant files, current diff/status, quick validation results or why they were not run, known gaps, and what Fable should decide.
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+Act as the high-intelligence review and strategy pass before the builder continues implementation. Use the prepared state to identify the highest-leverage issues, missing context, and next moves.
+
+Context Packet
+Use this prepared context packet as the starting point: `work/fable5-context/repo-review.md`.
+Treat it as a state snapshot. Inspect only what is necessary to make the review and handoff stronger.
+
+Ambition
+Do not merely summarize the repo. Find the few judgments that would change what the builder should do next: hidden risks, weak assumptions, missing validation, unclear ownership boundaries, or opportunities to simplify the next implementation pass.
+
+What To Explore
+- Whether the current state is ready for review or still missing a cheap checkpoint.
+- Which findings are evidence-backed versus uncertain.
+- Which incomplete items should block the next build step and which should be recorded as known gaps.
+- What the builder should do after your handoff.
+
+Output
+Return an implementation-ready review brief: highest-leverage findings, decision points, recommended next move, acceptance criteria, validation plan, and any gaps the builder should resolve. Show useful rationale and tradeoffs, not hidden chain-of-thought. Do not perform the implementation.
+```
