@@ -71,6 +71,17 @@ In Claude Code, `ultracode` is both a prompt keyword and a session setting. It p
 
 Use workflow language only when the user asks for `ultracode`, workflows, many subagents, or a task large enough to benefit from scripted orchestration: codebase-wide audits, large migrations, cross-checked research, repeated verification loops, or multi-angle planning. Keep the prompt high-level; let Fable 5 decide the decomposition after inspecting the real material.
 
+## New Chat And Local Files
+
+When the optimized prompt will be pasted into a new chat, do not assume linked files, skill chips, or prior context survive. Carry forward the exact path or source name the user provided. If the user did not provide a path, use a clear placeholder and ask for the missing source after the prompt only if it materially blocks use.
+
+For local skill or repo work, avoid "read every file" as the default. It wastes context and can make Fable 5 overplan. Prefer progressive loading:
+
+- Read the main entry file first, usually `SKILL.md`, `README.md`, or the manifest.
+- Inspect the file tree.
+- Read directly referenced resources and files relevant to the user's requested improvement.
+- Escalate to all references/tests/scripts only for broad audits, maximum-improvement passes, or tasks where missing a small clue would materially hurt the outcome.
+
 ## Codex-To-Fable Handoffs
 
 When the prompt is being written for use inside a Codex workflow, Fable 5 is usually the high-intelligence design pass and Codex is the builder. The optimized prompt should ask Fable 5 to produce the material Codex needs to implement well:

@@ -204,3 +204,37 @@ What To Explore
 Output
 Return the Codex-ready handoff first: recommended direction, key decisions, implementation shape, success criteria, verification plan, and any truly blocking unknowns. Show the useful rationale Codex needs, but do not write hidden chain-of-thought or perform the implementation.
 ```
+
+## Example 7: New Chat Skill Improvement Prompt
+
+Raw ask:
+
+```text
+i want you to improve my company-intelligent-research skill as much as possible
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+You are Claude Fable 5 acting as the high-intelligence audit and design pass before Codex edits a local agent skill. Upgrade the `company-intelligent-research` skill so it can perform deeper, more logical, source-backed company research: broad enough to find small but important signals, disciplined enough to distinguish facts from weak but meaningful inferences, and practical enough for Codex to implement and validate.
+
+Target
+Skill path: `/Users/corbinfloyd/.codex/skills/company-intelligent-research/SKILL.md`
+
+Context Loading
+Assume this is a new chat. Do not assume any linked skill chip or prior conversation context is available. Start by reading the target `SKILL.md`, then inspect the skill folder tree. Read the reference files, scripts, and tests that the entry file points to or that become relevant to this improvement pass. Because this is a maximum-improvement audit, widen to the full skill folder if small details could reveal missing opportunities.
+
+Ambition
+Look for improvements that make the skill better at deep evidence work, not just cleaner wording. Pay attention to weak signals, source routing, confidence labeling, contradiction handling, search breadth, provider escalation, local evidence, readiness checks, output contracts, and ways to prevent shallow or unsupported conclusions.
+
+What To Explore
+- Where the current workflow under-searches, over-trusts snippets, or misses small but important tells.
+- How the skill should separate verified facts, plausible inferences, weak signals, gaps, and recommendations.
+- Whether the reference files, scripts, tests, and output contracts reinforce each other or drift.
+- Which changes would make Codex implement the skill upgrade safely without turning it into a bloated checklist.
+- What validation would prove the upgraded skill actually performs deeper research.
+
+Output
+Return a Codex-ready handoff: strongest diagnosis, highest-leverage improvements, specific files Codex should inspect or edit, acceptance criteria, validation plan, and any blocking unknowns. Show useful rationale and tradeoffs, not hidden chain-of-thought. Do not edit files yourself; Codex will implement after your handoff.
+```
