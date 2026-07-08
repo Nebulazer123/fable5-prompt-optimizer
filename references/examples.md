@@ -70,7 +70,7 @@ Boundaries
 Do not invent literature claims. Do not lock the project into a narrow method before seeing the actual idea and available material.
 ```
 
-## Example 3: Codex-To-Fable Coding Handoff
+## Example 3: Codex-Specific Implementation Handoff
 
 Raw ask:
 

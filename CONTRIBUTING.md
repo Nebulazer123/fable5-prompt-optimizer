@@ -6,7 +6,7 @@ Thanks for improving Fable 5 Prompt Optimizer.
 
 - Improve Fable 5 prompt quality without making the skill more rigid.
 - Add examples that preserve user intent and leave room for discovery.
-- Tighten Codex-to-Fable handoff behavior.
+- Tighten implementation-handoff behavior.
 - Clarify `ultracode` and dynamic-workflow guidance.
 - Remove outdated or unsupported model/API guidance.
 
@@ -32,6 +32,6 @@ rg -n "Users/|api[_-]?key|token|secret|password" .
 
 - The skill still outputs the optimized prompt first.
 - The result stays ambitious without becoming a rigid implementation plan.
-- Codex-to-Fable prompts ask for a handoff, not hidden chain-of-thought.
+- Implementation-handoff prompts ask for a handoff, not hidden chain-of-thought.
 - Attribution in `NOTICE.md` and `references/upstream-license.txt` remains intact.
 - Validation passes locally.

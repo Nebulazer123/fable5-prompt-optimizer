@@ -87,9 +87,9 @@ For local skill or repo work, avoid "read every file" as the default. It wastes 
 - Read directly referenced resources and files relevant to the user's requested improvement.
 - Escalate to all references/tests/scripts only for broad audits, maximum-improvement passes, or tasks where missing a small clue would materially hurt the outcome.
 
-## Codex-To-Fable Handoffs
+## Implementation Handoffs
 
-When the prompt is being written for use inside a Codex workflow, the target prompt is usually the high-intelligence design pass and Codex is the builder. The optimized prompt should ask for the material Codex needs to implement well:
+When the prompt is being written for a builder workflow, the target prompt is usually the high-intelligence design pass and the builder may be Claude Code Desktop, Claude Code CLI, Claude Cowork, an API/harness, Codex, or another agent. The optimized prompt should ask for the material the builder needs to implement well:
 
 - The strongest interpretation of the ask.
 - The key assumptions and decision points.
@@ -99,9 +99,9 @@ When the prompt is being written for use inside a Codex workflow, the target pro
 
 Avoid asking the target to edit files, run commands, or implement unless the user explicitly says the target session should execute. Also avoid "write all your thinking" language. Ask for visible rationale and decision support instead of hidden chain-of-thought.
 
-For active Codex chats, do not repeat the chat history. Use a compact context instruction and let Fable infer from the injected context:
+For active chats, do not repeat the chat history. Use a compact context instruction and let Fable infer from the injected context:
 
-> Use the existing conversation, files, tool outputs, and decisions as context. Produce the Codex-ready intelligence handoff, not the implementation. Show the useful rationale, tradeoffs, and acceptance criteria Codex needs to build the right thing.
+> Use the existing conversation, files, tool outputs, and decisions as context. Produce the implementation-ready intelligence handoff, not the implementation. Show the useful rationale, tradeoffs, and acceptance criteria the builder needs to build the right thing.
 
 ## Output Defaults
 

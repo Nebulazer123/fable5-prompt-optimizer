@@ -7,14 +7,14 @@ description: Expand rough or ambitious asks into stronger Claude Fable 5 prompts
 
 ## Overview
 
-Turn a small user ask into a Fable-5-ready prompt that is more ambitious, clearer about intent, and still open enough for Fable 5 to choose the best method after seeing the real material. When the prompt is for a Codex workflow, default to an intelligence handoff that Codex will implement.
+Turn a small user ask into a Fable-5-ready prompt that is more ambitious, clearer about intent, and still open enough for Fable 5 to choose the best method after seeing the real material. When the prompt is for a builder workflow, default to an intelligence handoff that the target builder session can implement.
 
-Read `references/fable5-rules.md` before optimizing. Read `references/capability-contexts.md` when the prompt should draw on a domain-specific capability context such as coding, research, design, animation/UI, vision QA, documents, skill improvement, or `ultracode`. Read `references/claude-code-capabilities.md` when the target surface is Claude Code, Claude CLI, `ultracode`, slash commands, skills, agents, MCP, hooks, verification, plugins, or command-aware work. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
+Read `references/fable5-rules.md` before optimizing. Read `references/capability-contexts.md` when the prompt should draw on a domain-specific capability context such as coding, research, design, animation/UI, vision QA, documents, skill improvement, or `ultracode`. Read `references/claude-code-capabilities.md` when the target surface is Claude Code Desktop, Claude Code CLI, Claude Cowork, `ultracode`, slash commands, skills, agents, MCP, hooks, verification, plugins, or command-aware work. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
 
 ## Workflow
 
 1. Identify the moonshot: infer the larger outcome the user is reaching for, not just the literal task words.
-2. Detect the run surface: active Codex chat, new/standalone Claude or Fable chat, API/harness, or Claude Code with `ultracode`/dynamic workflows.
+2. Detect the run surface: active chat, Claude Code Desktop, Claude Code CLI, Claude Cowork, API/harness, or another builder such as Codex when explicitly relevant.
 3. Preserve latitude: keep the method, sequencing, and discovery path open unless the user explicitly asked for a plan, schema, code, or exact steps.
 4. Add useful context: include role, purpose, stakes, audience, source material placeholders, and success criteria.
 5. Select capabilities quietly: mention Claude Code commands, skills, agents, MCP, hooks, or plugins only when they materially improve the prompt.
@@ -48,15 +48,15 @@ For local skill-improvement asks, do not tell Fable 5 to load the entire tree au
 
 When a local path is supplied, include a compact `Target` or `Source Material` section with the path. If no path is supplied and the prompt will run in a standalone context, ask for the path or add a placeholder instead of pretending the prompt can locate the material.
 
-## Codex-To-Fable Handoff Mode
+## Implementation Handoff Mode
 
-Default to this mode when the user is working in Codex and wants a Fable 5 prompt, an ambiguous/intelligent upgrade, or a "moonshot" pass before Codex builds. The target prompt's job is the intelligence pass: sharpen the ambition, infer the strongest interpretation, surface assumptions and tradeoffs, sketch the implementation direction, define acceptance criteria, and identify verification signals. Codex's job is the dirty work: inspect files, edit code, run commands, create artifacts, and verify.
+Default to this mode when the user wants an ambiguous/intelligent upgrade, a "moonshot" pass, or a prompt that will guide later execution in Claude Code Desktop, Claude Code CLI, Claude Cowork, an API/harness, Codex, or another builder. The target prompt's job is the intelligence pass: sharpen the ambition, infer the strongest interpretation, surface assumptions and tradeoffs, sketch the implementation direction, define acceptance criteria, and identify verification signals. The builder session does the execution work: inspect files, edit code, run commands, create artifacts, and verify.
 
-Do not ask Fable 5 to run tools, edit files, or implement the change unless the user explicitly says the Fable/Claude Code session should execute. Ask for a Codex-ready handoff instead.
+Do not ask Fable 5 to run tools, edit files, or implement the change unless the user explicitly says the target Claude Code, Cowork, API/harness, Codex, or other builder session should execute. Ask for an implementation-ready handoff instead.
 
-Ask for visible rationale, decision points, assumptions, tradeoffs, and implementation shape. Do not ask for hidden chain-of-thought, "all thinking", or "show your reasoning"; rewrite those as "show the useful rationale Codex needs to implement well."
+Ask for visible rationale, decision points, assumptions, tradeoffs, and implementation shape. Do not ask for hidden chain-of-thought, "all thinking", or "show your reasoning"; rewrite those as "show the useful rationale the builder needs to implement well."
 
-Keep the handoff detailed but efficient. Compress repeated context, avoid long task choreography, and prioritize the details that would change what Codex builds next.
+Keep the handoff detailed but efficient. Compress repeated context, avoid long task choreography, and prioritize the details that would change what the builder does next.
 
 ## Model-Name Rule
 
@@ -127,7 +127,7 @@ Use as little boundary verbiage as possible. Do not auto-add boundary instructio
 
 For Claude Code prompts, add a short `Workflow Mode` section only when the user asks for `ultracode`, workflows, many subagents, agent teams, or a task that obviously needs large-scale parallel verification.
 
-For Codex-to-Fable prompts, add a short `Codex Handoff` or `Output` instruction that asks Fable for a ready-to-use implementation brief: strongest direction, key decisions, implementation shape, acceptance criteria, verification plan, risks, and any truly blocking open questions.
+For implementation-handoff prompts, add a short `Handoff` or `Output` instruction that asks for a ready-to-use implementation brief: strongest direction, key decisions, implementation shape, acceptance criteria, verification plan, risks, and any truly blocking open questions.
 
 For prompts that reference local files, include the exact paths and a short context-loading instruction. Do not assume the target can locate source material without a path or placeholder.
 
@@ -144,7 +144,7 @@ For API-target prompts, add a short `Fable 5 API notes` section only when the us
 - Ask for missing context inside an optional `Open questions` section after the prompt; do not block output unless the ask is empty.
 - Keep the final optimized prompt copyable. Do not wrap it in commentary-heavy audit blocks by default.
 - If the user asks for only the prompt, return only the prompt.
-- If the target is Codex-to-Fable, make it clear that Fable should produce the design/handoff and Codex will perform the implementation unless the user explicitly requested Claude Code execution.
+- If the target is an implementation handoff, make it clear that Fable should produce the design/handoff and the builder session will perform the implementation unless the user explicitly requested execution in the target session.
 
 ## Quality Gate
 
@@ -158,8 +158,8 @@ Before responding, verify:
 - Standalone prompts include supplied file paths and context needed to locate material.
 - File-path prompts use progressive loading instead of forcing full-tree loading.
 - Claude Code prompts mention only relevant commands, skills, agents, MCP, hooks, or plugins.
-- Codex-to-Fable prompts ask for visible rationale and handoff detail without requesting hidden chain-of-thought.
-- Codex-to-Fable prompts do not make Fable perform Codex's implementation work unless the user asked for execution.
+- Implementation-handoff prompts ask for visible rationale and handoff detail without requesting hidden chain-of-thought.
+- Implementation-handoff prompts do not make Fable perform builder execution work unless the user asked for execution.
 - Ultracode prompts preserve the workflow signal without hard-coding agent choreography.
 - The output uses Fable 5 guidance from `references/fable5-rules.md`.
 - Any adapted upstream rule language respects the MIT attribution in `references/upstream-license.txt`.

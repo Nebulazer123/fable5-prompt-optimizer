@@ -11,7 +11,7 @@ Use when the user asks to improve a skill, repo, plugin, workflow, or local capa
 - Deep pass trigger: widen to all references, scripts, tests, and examples only when the user asks for maximum improvement, a deep audit, or public readiness.
 - Claude Code routing: mention `/skills`, `/reload-skills`, skill validation, or Superpowers writing-skills only when the target run should discover, reload, validate, or improve a skill/plugin.
 - Quality bar: find leverage, drift, missing validation, brittle wording, stale assumptions, and weak examples.
-- Output: strongest diagnosis, changes Codex should make, acceptance criteria, validation plan, and any blocking unknowns.
+- Output: strongest diagnosis, changes the builder should make, acceptance criteria, validation plan, and any blocking unknowns.
 
 ## Coding, Migration, Or Audit
 
@@ -66,4 +66,4 @@ Use when the user says `ultracode`, asks for dynamic workflows, many subagents, 
 - Let Claude choose the workflow decomposition after inspecting the material; do not prescribe agent counts or a fixed phase script unless the user asked for that.
 - Ask for structured summaries from agents rather than raw logs, huge diffs, or copied intermediate output.
 - Use verifier or reviewer passes for important claims and completion status.
-- Keep final synthesis focused on decisions, evidence, remaining risk, and what Codex should do next.
+- Keep final synthesis focused on decisions, evidence, remaining risk, and what the builder should do next.
