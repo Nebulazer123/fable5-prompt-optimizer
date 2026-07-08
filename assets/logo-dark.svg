@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Fable 5 Prompt Optimizer</title>
+  <desc id="desc">A clean mark with layered prompt lines and a number five.</desc>
+  <rect width="128" height="128" rx="24" fill="#111827"/>
+  <rect x="24" y="28" width="80" height="72" rx="14" fill="#1f2937" stroke="#e5e7eb" stroke-width="4"/>
+  <path d="M39 48h50M39 64h32M39 80h24" stroke="#60a5fa" stroke-width="6" stroke-linecap="round"/>
+  <path d="M78 62h16v-12H74l-3 25h13c7 0 12 4 12 10 0 7-6 11-15 11-5 0-10-1-15-4" fill="none" stroke="#86efac" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
