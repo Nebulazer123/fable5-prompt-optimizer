@@ -7,9 +7,9 @@ description: Expand rough or ambitious asks into stronger Claude Fable 5 prompts
 
 ## Overview
 
-Turn a small user ask into a Fable-5-ready prompt that is more ambitious, clearer about intent, and still open enough for Fable 5 to choose the best method after seeing the real material. When the prompt is for a Codex workflow, default to a Fable intelligence handoff that Codex will implement.
+Turn a small user ask into a Fable-5-ready prompt that is more ambitious, clearer about intent, and still open enough for Fable 5 to choose the best method after seeing the real material. When the prompt is for a Codex workflow, default to an intelligence handoff that Codex will implement.
 
-Read `references/fable5-rules.md` before optimizing. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
+Read `references/fable5-rules.md` before optimizing. Read `references/capability-contexts.md` when the prompt should draw on a domain-specific capability context such as coding, research, design, animation/UI, vision QA, documents, skill improvement, or `ultracode`. Read `references/examples.md` when the requested prompt shape is unclear, when checking quality, or when the user asks for examples.
 
 ## Workflow
 
@@ -17,7 +17,7 @@ Read `references/fable5-rules.md` before optimizing. Read `references/examples.m
 2. Detect the run surface: active Codex chat, new/standalone Claude or Fable chat, API/harness, or Claude Code with `ultracode`/dynamic workflows.
 3. Preserve latitude: keep the method, sequencing, and discovery path open unless the user explicitly asked for a plan, schema, code, or exact steps.
 4. Add useful context: include role, purpose, stakes, audience, source material placeholders, and success criteria.
-5. Remove brittle Fable 5 anti-patterns: no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
+5. Remove brittle Fable 5 anti-patterns: no model-name self-introductions in generated prompt bodies, no reasoning echoes, no token countdowns, no unsupported API controls, no aggressive "MUST/CRITICAL" language, and no long procedural micromanagement.
 6. Output the optimized prompt first. Add a short rationale or open questions only when they materially help.
 
 ## Context Handling
@@ -32,7 +32,11 @@ Only use document or source placeholders when the prompt will be pasted into a n
 
 ## New Chat And File Path Handling
 
-If the prompt is for a first-time/new chat, assume the target model will not have this conversation, attachments, linked skill chips, or local file contents unless the optimized prompt includes them. Include exact local paths the user supplied and tell the target model what to read.
+If the prompt is for a first-time or standalone chat, carry forward the target paths, source names, and context needed to locate the material. Use quiet source-loading language such as:
+
+```text
+Use the target path/source material below as the starting point.
+```
 
 For local skill-improvement asks, do not tell Fable 5 to read every file by default. Use progressive loading:
 
@@ -41,17 +45,23 @@ For local skill-improvement asks, do not tell Fable 5 to read every file by defa
 3. Read the files that `SKILL.md` directly references and any files made relevant by the user's ask.
 4. Only read all references/tests/scripts when the ask explicitly calls for a deep audit, maximum improvement pass, or broad public-readiness pass.
 
-When a local path is supplied, include a compact `Target` or `Source Material` section with the path. If no path is supplied and the prompt will run in a new chat, ask for the path or add a placeholder instead of pretending the new chat already has it.
+When a local path is supplied, include a compact `Target` or `Source Material` section with the path. If no path is supplied and the prompt will run in a standalone context, ask for the path or add a placeholder instead of pretending the prompt can locate the material.
 
 ## Codex-To-Fable Handoff Mode
 
-Default to this mode when the user is working in Codex and wants a Fable 5 prompt, an ambiguous/intelligent upgrade, or a "moonshot" pass before Codex builds. Fable's job is the intelligence pass: sharpen the ambition, infer the strongest interpretation, surface assumptions and tradeoffs, sketch the implementation direction, define acceptance criteria, and identify verification signals. Codex's job is the dirty work: inspect files, edit code, run commands, create artifacts, and verify.
+Default to this mode when the user is working in Codex and wants a Fable 5 prompt, an ambiguous/intelligent upgrade, or a "moonshot" pass before Codex builds. The target prompt's job is the intelligence pass: sharpen the ambition, infer the strongest interpretation, surface assumptions and tradeoffs, sketch the implementation direction, define acceptance criteria, and identify verification signals. Codex's job is the dirty work: inspect files, edit code, run commands, create artifacts, and verify.
 
 Do not ask Fable 5 to run tools, edit files, or implement the change unless the user explicitly says the Fable/Claude Code session should execute. Ask for a Codex-ready handoff instead.
 
 Ask for visible rationale, decision points, assumptions, tradeoffs, and implementation shape. Do not ask for hidden chain-of-thought, "all thinking", or "show your reasoning"; rewrite those as "show the useful rationale Codex needs to implement well."
 
 Keep the handoff detailed but efficient. Compress repeated context, avoid long task choreography, and prioritize the details that would change what Codex builds next.
+
+## Model-Name Rule
+
+Generated optimized prompt bodies must not introduce or label the target model by name. Do not write role lines that name the model, even when the user says "for Fable 5." Use capability-role language instead, such as "Act as a high-intelligence design pass," "Act as a senior research strategist," or "Act as the architecture and implementation-intelligence pass."
+
+Skill documentation, file names, attribution, and API/model notes may still mention Fable 5 when describing the skill or platform facts.
 
 ## Ultracode And Dynamic Workflows
 
@@ -98,17 +108,18 @@ For Claude Code prompts, add a short `Workflow Mode` section only when the user 
 
 For Codex-to-Fable prompts, add a short `Codex Handoff` or `Output` instruction that asks Fable for a ready-to-use implementation brief: strongest direction, key decisions, implementation shape, acceptance criteria, verification plan, risks, and any truly blocking open questions.
 
-For new-chat prompts that reference local files, include the exact paths and a short context-loading instruction. Do not assume the model is already linked to the right file path.
+For prompts that reference local files, include the exact paths and a short context-loading instruction. Do not assume the target can locate source material without a path or placeholder.
 
 For API-target prompts, add a short `Fable 5 API notes` section only when the user asks for API use or mentions SDKs, agents, tools, harnesses, batch, streaming, parameters, or model IDs.
 
 ## Style Rules
 
 - Make the first paragraph broad and high-agency.
+- Do not name the target model in generated prompt bodies.
 - Prefer phrases like "look for the highest-leverage path" over exact step lists.
 - Add dimensions to investigate, not a predetermined answer.
 - In active-chat prompts, lean on the existing chat context instead of reprinting it.
-- In new-chat prompts, include the minimum path/context needed for the target chat to find the material.
+- In standalone prompts, include the minimum path/context needed for the target chat to find the material.
 - Ask for missing context inside an optional `Open questions` section after the prompt; do not block output unless the ask is empty.
 - Keep the final optimized prompt copyable. Do not wrap it in commentary-heavy audit blocks by default.
 - If the user asks for only the prompt, return only the prompt.
@@ -121,8 +132,9 @@ Before responding, verify:
 - The output is more ambitious than the input.
 - The output keeps room for discovery and judgment.
 - The output does not become a rigid implementation plan.
+- Generated prompt bodies do not name the target model.
 - Active-chat prompts do not duplicate already-injected context.
-- New-chat prompts include supplied file paths and do not assume linked context.
+- Standalone prompts include supplied file paths and context needed to locate material.
 - File-path prompts use progressive loading instead of telling the model to read every file by default.
 - Codex-to-Fable prompts ask for visible rationale and handoff detail without requesting hidden chain-of-thought.
 - Codex-to-Fable prompts do not make Fable perform Codex's implementation work unless the user asked for execution.

@@ -82,7 +82,7 @@ Better Fable 5 prompt:
 
 ```text
 Role & Objective
-You are Claude Fable 5 acting as the architecture and implementation-intelligence pass for a Codex coding workflow. Upgrade the user's rough request into the strongest Codex-ready handoff: what should be built, why it matters, what tradeoffs matter, and how Codex should know the result is good.
+Act as the architecture and implementation-intelligence pass for a Codex coding workflow. Upgrade the user's rough request into the strongest Codex-ready handoff: what should be built, why it matters, what tradeoffs matter, and how Codex should know the result is good.
 
 Context
 Use the existing conversation, files, tool outputs, repo clues, and decisions already present as context. Codex will inspect files, edit code, run commands, and verify after your answer, so do not restate the whole chat or try to implement the change yourself.
@@ -152,10 +152,10 @@ Better Fable 5 prompt:
 
 ```text
 Role & Objective
-You are Claude Fable 5 in Claude Code. Use the conversation, files, tool outputs, and decisions already present in this chat as context. Turn the portfolio work into a much more ambitious, evidence-driven improvement pass without losing the user's actual goals.
+Act as the high-agency portfolio strategy pass for a Claude Code workflow. Use the conversation, files, tool outputs, and decisions already present in this chat as context. Turn the portfolio work into a much more ambitious, evidence-driven improvement pass without losing the user's actual goals.
 
 Context
-Assume the existing chat context will be injected with this prompt. Do not restate the chat history or re-derive decisions already made. Inspect the real materials that are available, then choose the path that best fits what you find.
+Use the existing chat context as the source material. Do not restate the chat history or re-derive decisions already made. Inspect the real materials that are available, then choose the path that best fits what you find.
 
 Ambition
 Look for the highest-leverage way to make the portfolio harder to dismiss: stronger proof, sharper positioning, clearer artifacts, better navigation, and a more memorable interaction model if the materials support it.
@@ -186,7 +186,7 @@ Better Fable 5 prompt:
 
 ```text
 Role & Objective
-You are Claude Fable 5 acting as the high-intelligence design pass before Codex implements. Transform the rough ask into a stronger, more ambitious implementation brief without locking Codex into a brittle plan.
+Act as the high-intelligence design pass before Codex implements. Transform the rough ask into a stronger, more ambitious implementation brief without locking Codex into a brittle plan.
 
 Context
 Use the existing chat, attached files, tool outputs, and decisions as context. Codex will do the repo inspection, implementation, commands, artifact creation, and verification after your answer.
@@ -217,13 +217,13 @@ Better Fable 5 prompt:
 
 ```text
 Role & Objective
-You are Claude Fable 5 acting as the high-intelligence audit and design pass before Codex edits a local agent skill. Upgrade the `company-intelligent-research` skill so it can perform deeper, more logical, source-backed company research: broad enough to find small but important signals, disciplined enough to distinguish facts from weak but meaningful inferences, and practical enough for Codex to implement and validate.
+Act as the high-intelligence audit and design pass before Codex edits a local agent skill. Upgrade the `company-intelligent-research` skill so it can perform deeper, more logical, source-backed company research: broad enough to find small but important signals, disciplined enough to distinguish facts from weak but meaningful inferences, and practical enough for Codex to implement and validate.
 
 Target
 Skill path: `/Users/corbinfloyd/.codex/skills/company-intelligent-research/SKILL.md`
 
 Context Loading
-Assume this is a new chat. Do not assume any linked skill chip or prior conversation context is available. Start by reading the target `SKILL.md`, then inspect the skill folder tree. Read the reference files, scripts, and tests that the entry file points to or that become relevant to this improvement pass. Because this is a maximum-improvement audit, widen to the full skill folder if small details could reveal missing opportunities.
+Use the target path/source material below as the starting point. Start by reading the target `SKILL.md`, then inspect the skill folder tree. Read the reference files, scripts, and tests that the entry file points to or that become relevant to this improvement pass. Because this is a maximum-improvement audit, widen to the full skill folder if small details could reveal missing opportunities.
 
 Ambition
 Look for improvements that make the skill better at deep evidence work, not just cleaner wording. Pay attention to weak signals, source routing, confidence labeling, contradiction handling, search breadth, provider escalation, local evidence, readiness checks, output contracts, and ways to prevent shallow or unsupported conclusions.
@@ -237,4 +237,35 @@ What To Explore
 
 Output
 Return a Codex-ready handoff: strongest diagnosis, highest-leverage improvements, specific files Codex should inspect or edit, acceptance criteria, validation plan, and any blocking unknowns. Show useful rationale and tradeoffs, not hidden chain-of-thought. Do not edit files yourself; Codex will implement after your handoff.
+```
+
+## Example 8: UI And Animation Moonshot
+
+Raw ask:
+
+```text
+make this UI/animation pass way more ambitious
+```
+
+Better Fable 5 prompt:
+
+```text
+Role & Objective
+Act as a product-minded visual design and motion direction pass before Codex implements. Upgrade the rough UI/animation ask into a stronger creative brief that raises the quality bar without dictating every implementation detail.
+
+Context
+Use the existing product context, screenshots, codebase clues, and design constraints as source material. If visual assets or running UI are available, inspect them before deciding what kind of motion or interaction polish would actually help.
+
+Ambition
+Look for the highest-leverage way to make the interface feel more intentional, usable, and memorable. Treat animation as communication: it should clarify state, hierarchy, causality, pacing, or delight, not decorate the page.
+
+What To Explore
+- The strongest visual direction for the product and audience.
+- Where hierarchy, spacing, density, typography, or color are weakening the experience.
+- Which interactions need hover, active, disabled, loading, focus, transition, or empty-state treatment.
+- What motion should communicate, how it should feel, and where stillness is better.
+- Accessibility, viewport, overlap, contrast, and reduced-motion checks Codex should verify.
+
+Output
+Return a Codex-ready design handoff: recommended direction, interaction and motion priorities, implementation shape, acceptance criteria, visual QA plan, and risks. Keep room for Codex to adapt after inspecting the real UI.
 ```

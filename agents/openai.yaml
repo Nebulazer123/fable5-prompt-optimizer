@@ -1,4 +1,4 @@
 interface:
   display_name: "Fable 5 Prompt Optimizer"
-  short_description: "Expand rough asks into Fable 5/Codex handoff prompts"
-  default_prompt: "Use $fable5-prompt-optimizer to turn this rough ask into a Fable 5 prompt that produces a Codex-ready intelligence handoff."
+  short_description: "Expand rough asks into Codex-ready handoff prompts"
+  default_prompt: "Use $fable5-prompt-optimizer to upgrade this rough ask into a stronger Codex-ready handoff prompt."

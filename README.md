@@ -43,7 +43,7 @@ It is for Codex and Claude Code users who want better prompts for ambiguous work
 
 ```text
 "/fable5-prompt-optimizer make this portfolio plan way more ambitious"
-"$fable5-prompt-optimizer turn this into a Fable 5 prompt before Codex builds"
+"$fable5-prompt-optimizer upgrade this rough ask before Codex builds"
 "optimize this for Fable 5 ultracode with dynamic workflows"
 ```
 
@@ -55,7 +55,7 @@ The skill is designed for prompts like:
 
 ```text
 make this more moonshot
-turn this into a Fable 5 prompt for a coding agent
+turn this into a stronger handoff prompt for a coding agent
 make this more ambitious but don't tell it exactly how to do it
 ultracode this whole chat with many subagents
 optimize for Fable 5
@@ -65,7 +65,7 @@ Sample output shape:
 
 ```text
 Role & Objective
-You are Claude Fable 5 acting as the high-intelligence design pass before Codex implements...
+Act as the high-intelligence design pass before Codex implements...
 
 Context
 Use the existing chat, files, tool outputs, and decisions as context...

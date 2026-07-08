@@ -2,12 +2,15 @@
 
 Sources: adapted from the MIT-licensed `CheswickDEV/claude-fable-5-prompt-optimizer` and updated against Anthropic documentation available on July 8, 2026. See `upstream-license.txt`.
 
+Official Anthropic and Claude Code documentation is authoritative for model behavior, API notes, dynamic workflows, and safeguards. Public GitHub prompt repos, leaked-system-prompt mirrors, Reddit posts, LinkedIn posts, YouTube videos, newsletters, and other social/community sources are inspiration only unless they are verified against official docs or local behavior. Do not treat leaked prompts or social posts as confirmed system prompts.
+
 ## Core Model Posture
 
 - Claude Fable 5 is built for high-difficulty, ambiguous, long-horizon work. Prompts should make room for the model to scope, inspect, choose a path, and self-verify.
 - Skills and prompts written for earlier Claude models can be too prescriptive for Fable 5. Prefer short, high-leverage instructions over long behavior inventories.
 - Give the reason behind the request. Fable 5 tends to perform better when it knows the larger task, audience, stakes, and what the output enables.
 - Use `high` effort as the default API posture. Reserve `xhigh` or `max` for the most capability-sensitive work; use lower effort for routine tasks.
+- In generated prompt bodies, do not name the target model. The surrounding skill can mention Fable 5, but the prompt itself should use role/capability language.
 
 ## Keep The Ask Moonshot
 
@@ -41,6 +44,7 @@ Avoid generic PromptBuilder weaknesses:
 - Do not turn every ask into a conventional "comprehensive audit."
 - Do not add generic bullets that could fit any project.
 - Do not make the prompt model-agnostic when the user asked for Fable 5.
+- Do not dump every capability context into every prompt. Select only the dimensions that fit the user's ask.
 
 ## Fable 5 Anti-Patterns To Remove
 
@@ -51,6 +55,7 @@ Remove or rewrite:
 - `temperature`, `top_p`, `top_k`, assistant prefill, `thinking: disabled`, and `budget_tokens` recommendations. These are unsupported or wrong for Fable 5-era API use.
 - Aggressive trigger language such as "CRITICAL", "MUST", "never be lazy", or forced status rituals unless the user explicitly needs strict compliance wording.
 - Detailed execution sequences when the user wanted a prompt, not an implementation plan.
+- Model-name role labels in generated prompt bodies. Use capability roles instead.
 
 ## Long Or Agentic Prompts
 
@@ -73,7 +78,7 @@ Use workflow language only when the user asks for `ultracode`, workflows, many s
 
 ## New Chat And Local Files
 
-When the optimized prompt will be pasted into a new chat, do not assume linked files, skill chips, or prior context survive. Carry forward the exact path or source name the user provided. If the user did not provide a path, use a clear placeholder and ask for the missing source after the prompt only if it materially blocks use.
+When the optimized prompt will be pasted into a standalone chat or external harness, carry forward the exact path or source name the user provided. Use quiet source-loading language such as "Use the target path/source material below as the starting point." If the user did not provide a path, use a clear placeholder and ask for the missing source after the prompt only if it materially blocks use.
 
 For local skill or repo work, avoid "read every file" as the default. It wastes context and can make Fable 5 overplan. Prefer progressive loading:
 
@@ -84,7 +89,7 @@ For local skill or repo work, avoid "read every file" as the default. It wastes 
 
 ## Codex-To-Fable Handoffs
 
-When the prompt is being written for use inside a Codex workflow, Fable 5 is usually the high-intelligence design pass and Codex is the builder. The optimized prompt should ask Fable 5 to produce the material Codex needs to implement well:
+When the prompt is being written for use inside a Codex workflow, the target prompt is usually the high-intelligence design pass and Codex is the builder. The optimized prompt should ask for the material Codex needs to implement well:
 
 - The strongest interpretation of the ask.
 - The key assumptions and decision points.
@@ -92,7 +97,7 @@ When the prompt is being written for use inside a Codex workflow, Fable 5 is usu
 - Acceptance criteria and verification signals.
 - Risks, tradeoffs, and truly blocking unknowns.
 
-Avoid asking Fable 5 to edit files, run commands, or implement unless the user explicitly says the target session should execute. Also avoid "write all your thinking" language. Ask for visible rationale and decision support instead of hidden chain-of-thought.
+Avoid asking the target to edit files, run commands, or implement unless the user explicitly says the target session should execute. Also avoid "write all your thinking" language. Ask for visible rationale and decision support instead of hidden chain-of-thought.
 
 For active Codex chats, do not repeat the chat history. Use a compact context instruction and let Fable infer from the injected context:
 
